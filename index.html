@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Алинка, С ДР! 💖 от Кирилла</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700;800&family=SF+Pro+Text:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ios26-glass: rgba(255, 255, 255, 0.12);
+            --ios26-glass-border: rgba(255, 255, 255, 0.18);
+            --ios26-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            --ios26-shadow-elevated: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --ios26-primary: 255, 55, 120;
+            --ios26-secondary: 175, 82, 222;
+            --ios26-accent: 10, 132, 255;
+        }
+        
+        * { 
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        body {
+            font-family: 'SF Pro Display', 'SF Pro Text', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: 
+                linear-gradient(135deg, rgb(var(--ios26-primary)) 0%, rgb(var(--ios26-secondary)) 50%, rgb(var(--ios26-accent)) 100%);
+            background-size: 400% 400%;
+            animation: ios26GradientShift 15s ease infinite;
+            overflow-x: hidden;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            min-height: 100vh;
+        }
+        
+        @keyframes ios26GradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        /* ✅ iOS 26 LIQUID GLASS */
+        .ios26-glass {
+            background: rgba(var(--ios26-glass));
+            backdrop-filter: blur(40px) saturate(180%) brightness(1.1);
+            border: 1px solid rgba(var(--ios26-glass-border));
+            border-radius: 28px;
+            box-shadow: var(--ios26-shadow-elevated),
+                        0 0 0 1px rgba(255, 255, 255, 0.05),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        
+        .ios26-glass:hover {
+            transform: translateY(-4px);
+            box-shadow: 
+                0 32px 64px -16px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.25);
+        }
+        
+        .ios26-glass:active {
+            transform: translateY(-2px) scale(0.98);
+        }
+        
+        /* iOS 26 Typography - SANS SERIF */
+        .ios26-title {
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(45deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,1) 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            font-family: 'SF Pro Display', 'Inter', sans-serif;
+        }
+        
+        .ios26-subtitle {
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            background: linear-gradient(45deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.95) 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'SF Pro Text', 'Inter', sans-serif;
+        }
+        
+        /* iOS 26 Button */
+        .ios26-btn {
+            font-weight: 600;
+            font-size: 17px;
+            padding: 16px 32px;
+            min-height: 56px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: white;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            position: relative;
+            overflow: hidden;
+            font-family: 'SF Pro Text', 'Inter', sans-serif;
+        }
+        
+        .ios26-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s;
+        }
+        
+        .ios26-btn:hover::before { left: 100%; }
+        .ios26-btn:hover { transform: translateY(-2px); }
+        .ios26-btn:active { transform: translateY(0px) scale(0.98); }
+        
+        /* iOS 26 Slider */
+        .ios26-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%; height: 10px;
+            background: rgba(255,255,255,0.12);
+            border-radius: 10px;
+            outline: none;
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: background 0.3s ease;
+        }
+        
+        .ios26-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 52px; height: 52px;
+            background: linear-gradient(135deg, rgb(var(--ios26-primary)), rgb(var(--ios26-secondary)));
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 
+                0 12px 28px rgba(255,55,120,0.4),
+                0 0 0 6px rgba(255,255,255,0.3),
+                inset 0 2px 4px rgba(255,255,255,0.3);
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        
+        .ios26-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.12);
+            box-shadow: 
+                0 20px 40px rgba(255,55,120,0.5),
+                0 0 0 8px rgba(255,255,255,0.4);
+        }
+        
+        .ios26-progress {
+            height: 16px;
+            background: linear-gradient(90deg, 
+                rgba(255,55,120,0.8) 0%, 
+                rgba(175,82,222,0.8) 50%, 
+                rgba(10,132,255,0.8) 100%);
+            border-radius: 12px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 20px rgba(255,55,120,0.3);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        /* iOS 26 Card */
+        .ios26-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(30px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        
+        .ios26-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: var(--ios26-shadow-elevated);
+        }
+        
+        /* Font Awesome Icons */
+        .fa-icon { font-size: 1.5em; margin-right: 0.5em; }
+        
+        @media (max-width: 640px) {
+            .ios26-title { font-size: clamp(2.8rem, 12vw, 5.5rem) !important; }
+            .ios26-subtitle { font-size: clamp(1.8rem, 7vw, 3rem) !important; }
+        }
+        
+        /* Floating Hearts */
+        .heart-float {
+            animation: heartFloat 12s infinite linear;
+        }
+        @keyframes heartFloat {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Hearts -->
+    <div class="fixed inset-0 pointer-events-none z-0">
+        <div class="heart-float absolute left-10 text-2xl" style="animation-delay: 0s;"><i class="fas fa-heart text-pink-400"></i></div>
+        <div class="heart-float absolute left-20 text-3xl text-rose-300" style="animation-delay: 3s;"><i class="fas fa-heart"></i></div>
+        <div class="heart-float absolute right-20 text-4xl text-pink-400" style="animation-delay: 6s;"><i class="fas fa-gem"></i></div>
+        <div class="heart-float absolute right-10 text-2xl text-purple-300" style="animation-delay: 9s;"><i class="fas fa-star"></i></div>
+    </div>
+
+    <div class="relative z-20 flex flex-col min-h-screen px-6 sm:px-12 lg:px-20 py-12">
+        <!-- Hero Section - МЕНЬШИЙ ШРИФТ -->
+        <section class="flex-1 flex items-center justify-center py-20 sm:py-32 min-h-screen">
+            <div class="w-full max-w-5xl mx-auto ios26-glass p-12 sm:p-20 lg:p-28 text-center">
+                <div class="mb-12 sm:mb-20 space-y-6">
+                    <h1 class="ios26-title text-5xl sm:text-6xl lg:text-7xl leading-none mb-8">
+                        <i class="fa fa-birthday-cake fa-icon text-4xl sm:text-5xl lg:text-6xl"></i>АЛИНКА!
+                    </h1>
+                    <p class="ios26-subtitle text-3xl sm:text-4xl lg:text-5xl tracking-tight font-light">
+                        <i class="fas fa-gift fa-icon"></i>С ДНЁМ РОЖДЕНИЯ!
+                    </p>
+                    <p class="text-xl sm:text-2xl text-white/95 font-medium">
+                        <i class="fas fa-heart fa-icon"></i>От твоего <span class="ios26-title text-3xl sm:text-4xl">Кириллки-дибилки</span>
+                    </p>
+                </div>
+                <div class="flex flex-col lg:flex-row gap-6 justify-center items-center max-w-2xl mx-auto">
+                    <button id="startBtn" class="ios26-btn ios26-glass px-12 sm:px-20 py-6 sm:py-8 font-semibold shadow-2xl text-xl sm:text-2xl">
+                        <i class="fas fa-rocket fa-icon"></i>НАЧАТЬ
+                    </button>
+                    <button id="fireworksBtn" class="ios26-btn ios26-glass px-10 sm:px-16 py-6 sm:py-8 font-semibold shadow-xl text-lg sm:text-xl">
+                        <i class="fas fa-fireworks fa-icon"></i>ФЕЙЕРВЕРК
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Love Meter -->
+        <section id="loveMeter" class="ios26-glass py-20 sm:py-28 mx-auto max-w-2xl w-full mb-24 hidden">
+            <div class="text-center px-6">
+                <h2 class="ios26-title text-5xl sm:text-6xl lg:text-7xl mb-16">
+                    <i class="fas fa-heart fa-2x fa-icon"></i>Любовь
+                </h2>
+                
+                <div class="relative mb-16">
+                    <div class="w-full h-20 sm:h-24 bg-white/10 rounded-3xl ios26-glass mb-8"></div>
+                    <div id="loveBar" class="ios26-progress absolute -top-1 left-1 w-0 h-20 sm:h-24 rounded-3xl shadow-2xl"></div>
+                </div>
+                
+                <div class="space-y-10">
+                    <div class="space-y-4">
+                        <p id="loveText" class="text-6xl sm:text-7xl font-black ios26-title">0%</p>
+                        <p class="text-2xl sm:text-3xl font-medium text-white/95 tracking-wide">
+                            <i class="fas fa-hand-pointer fa-icon"></i>Проведи ползунок до конца
+                        </p>
+                    </div>
+                    
+                    <div class="max-w-lg mx-auto ios26-glass p-10 sm:p-12 rounded-3xl">
+                        <label class="block text-xl sm:text-2xl font-semibold text-white/95 mb-8 text-center">
+                            <i class="fas fa-smile-beam fa-icon"></i>СИЛЬНО ЛЮБИШЬ, ДА ВЕДЬ?
+                        </label>
+                        <input type="range" id="loveSlider" class="ios26-slider" min="0" max="100" value="0" step="1">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Memory Game - ПРЕЖНИЕ СМАЙЛИКИ -->
+        <section id="memoryGame" class="ios26-glass py-20 sm:py-28 mx-auto max-w-4xl w-full mb-24 hidden">
+            <div class="text-center px-6">
+                <h2 class="ios26-title text-5xl sm:text-6xl lg:text-7xl mb-16">
+                    <i class="fas fa-memory fa-2x fa-icon"></i>Воспоминания
+                </h2>
+                <p class="text-2xl sm:text-3xl text-white/95 mb-20 max-w-2xl mx-auto">
+                    <i class="fas fa-puzzle-piece fa-icon"></i>Найди все пары
+                </p>
+                <div id="gameBoard" class="grid grid-cols-4 gap-6 sm:gap-8 max-w-3xl mx-auto mb-16"></div>
+                <div class="space-y-6">
+                    <p id="gameStatus" class="text-3xl sm:text-4xl font-black ios26-title">
+                        <i class="fas fa-play-circle fa-icon"></i>Начни игру!
+                    </p>
+                    <button id="newGame" class="ios26-btn ios26-glass px-14 sm:px-20 py-6 sm:py-8 font-semibold shadow-xl text-xl">
+                        <i class="fas fa-redo fa-icon"></i>Новая игра
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Love Messages - ✅ СЕРДЕЧКИ! -->
+        <section id="messages" class="ios26-glass py-20 sm:py-28 mx-auto max-w-6xl w-full mb-24 hidden">
+            <h2 class="ios26-title text-5xl sm:text-6xl lg:text-7xl text-center mb-24">
+                <i class="fas fa-envelope-open-text fa-2x fa-icon"></i>Слова любви
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12">
+                <div class="ios26-card p-10 sm:p-14 lg:p-16 hover:scale-105 transition-all duration-500">
+                    <h3 class="text-3xl sm:text-4xl font-black ios26-title mb-8">
+                        <i class="fas fa-heart text-rose-400 fa-icon"></i>💖 Ты моя Вселенная
+                    </h3>
+                    <p class="text-xl sm:text-2xl leading-relaxed text-white/95">Ты мой космос, мои звезды, мое солнце.</p>
+                </div>
+                <div class="ios26-card p-10 sm:p-14 lg:p-16 hover:scale-105 transition-all duration-500">
+                    <h3 class="text-3xl sm:text-4xl font-black ios26-title mb-8">
+                        <i class="fas fa-heart fa-icon"></i>Моя единственная
+                    </h3>
+                    <p class="text-xl sm:text-2xl leading-relaxed text-white/95">Твоя улыбка освещает мой мир.</p>
+                </div>
+                <div class="ios26-card p-10 sm:p-14 lg:p-16 hover:scale-105 transition-all duration-500">
+                    <h3 class="text-3xl sm:text-4xl font-black ios26-title mb-8">
+                        💕 <i class="fas fa-heart-pulse fa-icon"></i>Ты моя мечта
+                    </h3>
+                    <p class="text-xl sm:text-2xl leading-relaxed text-white/95">Каждый день с тобой - исполнение снов!</p>
+                </div>
+                <div class="ios26-card p-10 sm:p-14 lg:p-16 hover:scale-105 transition-all duration-500">
+                    <h3 class="text-3xl sm:text-4xl font-black ios26-title mb-8">
+                        <i class="fas fa-infinity fa-icon"></i>Навсегда вместе
+                    </h3>
+                    <p class="text-xl sm:text-2xl leading-relaxed text-white/95">Наше будущее, путешествия, дом!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final -->
+        <section id="final" class="py-24 sm:py-32 text-center hidden">
+            <div class="ios26-glass max-w-5xl mx-auto p-20 sm:p-28 lg:p-36 rounded-3xl">
+                <div class="mb-20 sm:mb-28">
+                    <div class="text-[10rem] sm:text-[16rem] lg:text-[20rem] mx-auto mb-12">
+                        <i class="fas fa-birthday-cake fa-10x"></i>
+                    </div>
+                    <div class="text-6xl sm:text-8xl mb-16">
+                        <i class="fas fa-laugh-squint fa-6x mx-2"></i>
+                        <i class="fas fa-sparkles fa-6x mx-2"></i>
+                        <i class="fas fa-heart fa-6x mx-2"></i>
+                    </div>
+                </div>
+                <h2 class="ios26-title text-6xl sm:text-7xl lg:text-9xl mb-16">
+                    АЛИНКА, Я ТЕБЯ <i class="fas fa-infinity fa-icon"></i> ЛЮБЛЮ!
+                </h2>
+                <div class="text-3xl sm:text-4xl lg:text-5xl text-white/95 mb-20 sm:mb-28 font-medium space-y-6">
+                    <p><i class="fas fa-crown fa-icon"></i>Ты - МОЯ ЖИЗНЬ, МОЯ РАДОСТЬ!</p>
+                    <p><i class="fas fa-star fa-icon"></i>Будь самой счастливой всегда!</p>
+                </div>
+                <div class="flex flex-col lg:flex-row gap-6 justify-center items-center mb-16">
+                    <button onclick="location.reload()" class="ios26-btn ios26-glass px-16 sm:px-24 py-8 sm:py-10 rounded-2xl font-black text-2xl shadow-2xl">
+                        <i class="fas fa-gamepad fa-icon"></i>ИГРАТЬ ЗАНОВО!
+                    </button>
+                    <a href="https://t.me/kttk05" target="_blank" class="ios26-btn ios26-glass px-16 sm:px-24 py-8 sm:py-10 rounded-2xl font-black text-2xl shadow-2xl">
+                        <i class="fas fa-whatsapp fa-icon"></i>Написать минее
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="ios26-glass max-w-4xl mx-auto mx-6 sm:mx-12 lg:mx-auto mb-16 p-12 sm:p-16 rounded-3xl text-center">
+            <div class="text-2xl sm:text-3xl font-light mb-6 italic ios26-subtitle">
+                <i class="fas fa-star fa-icon"></i>Ты — как звезда, что освещает мою ночь,
+            </div>
+            <div class="text-2xl sm:text-3xl font-light mb-6 italic ios26-subtitle">
+                <i class="fas fa-wind fa-icon"></i>Как нежный ветер, что дарит покой.
+            </div>
+            <div class="text-2xl sm:text-3xl font-light mb-8 italic ios26-subtitle">
+                <i class="fas fa-sun fa-icon"></i>С тобой весь мир становится ярче вдвойне,
+            </div>
+            <div class="text-xl sm:text-2xl font-semibold text-white/95 ios26-title">
+                <i class="fas fa-infinity fa-icon"></i>Люблю тебя бесконечно, моя Алинка 💕
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        let state = { adventure: false, love: 0, game: { board: [], flipped: [], matched: 0 }, fireworksActive: false };
+        // ✅ ПРЕЖНИЕ СМАЙЛИКИ В ВОСПОМИНАНИЯХ
+        const memories = ['Первый поцелуй 💋', 'Твоя улыбка 😍', 'Наши прогулки 🌳', 'Теплые объятия 🤗', 'Наши шутки 😂', 'Твои глазки 👀', 'Наши мечты 💭', 'Любовь навсегда 💖'];
+        
+        const els = {};
+        ['startBtn', 'fireworksBtn', 'loveMeter', 'memoryGame', 'messages', 'final', 'loveBar', 'loveText', 'gameBoard', 'gameStatus', 'newGame', 'loveSlider']
+        .forEach(id => els[id] = document.getElementById(id));
+
+        function victoryFireworks() {
+            if (state.fireworksActive) return;
+            state.fireworksActive = true;
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => confetti({
+                    particleCount: 60, spread: 90, origin: { x: Math.random(), y: 0.5 },
+                    colors: ['#ff3758', '#af52de', '#0a84ff', '#ff9a9e']
+                }), i * 180);
+            }
+            setTimeout(() => state.fireworksActive = false, 3500);
+        }
+
+        setInterval(() => {
+            if (Math.random() < 0.15) {
+                confetti({ particleCount: 3, spread: 70, origin: { y: 0.7 }, colors: ['#ff3758', '#ff9a9e'] });
+            }
+        }, 1000);
+
+        els.startBtn.onclick = () => {
+            if (state.adventure) return;
+            state.adventure = true;
+            els.startBtn.innerHTML = '<i class="fas fa-heart-pulse fa-icon"></i>НАЧАЛИ!';
+            setTimeout(() => els.loveMeter.classList.remove('hidden'), 1200);
+        };
+        els.fireworksBtn.onclick = victoryFireworks;
+
+        els.loveSlider.oninput = (e) => {
+            state.love = parseInt(e.target.value);
+            const percent = state.love;
+            els.loveBar.style.width = percent + '%';
+            els.loveText.textContent = percent + '%';
+            if (percent > state.love - 8) {
+                confetti({ particleCount: 6, spread: 35, colors: ['#ff3758', '#ff9a9e'] });
+            }
+            if (percent >= 100) {
+                setTimeout(() => {
+                    els.memoryGame.classList.remove('hidden');
+                    victoryFireworks();
+                }, 1000);
+            }
+        };
+
+        function initGame() {
+            state.game.board = [...memories, ...memories].sort(() => Math.random() - 0.5);
+            state.game.flipped = []; state.game.matched = 0; els.gameBoard.innerHTML = '';
+            state.game.board.forEach((mem, i) => {
+                const card = document.createElement('div');
+                card.className = 'ios26-glass h-28 sm:h-36 p-6 rounded-2xl flex items-center justify-center text-2xl sm:text-3xl font-bold cursor-pointer hover:scale-105 transition-all duration-300 ios26-card select-none';
+                card.dataset.i = i; card.textContent = '❓'; card.onclick = () => flipCard(card);
+                els.gameBoard.appendChild(card);
+            });
+            els.gameStatus.innerHTML = '<i class="fas fa-play-circle fa-icon"></i>Найди все пары!';
+        }
+
+        function flipCard(card) {
+            if (state.game.flipped.length === 2 || card.classList.contains('flipped') || card.classList.contains('matched')) return;
+            card.textContent = state.game.board[card.dataset.i];
+            card.classList.add('flipped');
+            state.game.flipped.push(card);
+            if (state.game.flipped.length === 2) setTimeout(checkMatch, 1200);
+        }
+
+        function checkMatch() {
+            const [c1, c2] = state.game.flipped;
+            if (c1.textContent === c2.textContent) {
+                c1.classList.add('matched', 'bg-gradient-to-r', 'from-emerald-500', 'to-teal-500');
+                c2.classList.add('matched', 'bg-gradient-to-r', 'from-emerald-500', 'to-teal-500');
+                state.game.matched++;
+                if (state.game.matched === memories.length) {
+                    els.gameStatus.innerHTML = '<i class="fas fa-trophy fa-icon"></i><br>Ты лучшая! 💖';
+                    victoryFireworks();
+                    setTimeout(() => els.messages.classList.remove('hidden'), 3500);
+                }
+            } else {
+                c1.textContent = '❓'; c2.textContent = '❓';
+                c1.classList.remove('flipped'); c2.classList.remove('flipped');
+            }
+            state.game.flipped = [];
+        }
+        els.newGame.onclick = initGame;
+    </script>
+</body>
+</html>
